@@ -37,7 +37,7 @@ const ProductImage = ({ src, alt, style = {} }) => {
   );
 };
 
-const Logo = ({ light = false, height = 40 }) => {
+const Logo = ({ light = false, height = 40, navSize = false }) => {
   const src = light ? IMAGES.logoLight : IMAGES.logoDark;
   if (isReal(src)) {
     return <img src={src} alt="AquaCube" style={{ height: "auto", width: navSize ? 150 : 200, cursor: "pointer" }} />;
