@@ -40,7 +40,7 @@ const ProductImage = ({ src, alt, style = {} }) => {
 const Logo = ({ light = false, height = 40 }) => {
   const src = light ? IMAGES.logoLight : IMAGES.logoDark;
   if (isReal(src)) {
-    return <img src={src} alt="AquaCube" style={{ height: height * 2, cursor: "pointer" }} />;
+    return <img src={src} alt="AquaCube" style={{ height: height * 4, cursor: "pointer" }} />;
   }
   const textColor = light ? "white" : NAVY;
   return (
