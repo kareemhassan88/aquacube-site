@@ -557,6 +557,11 @@ export default function App() {
         button { transition: opacity 0.2s; }
         button:hover { opacity: 0.9; }
         ::selection { background: ${AQUA}30; }
+        @media (max-width: 768px) {
+          .nav-desktop { display: none !important; }
+          .nav-mobile-btn { display: flex !important; }
+          .nav-mobile-menu { display: flex !important; }
+        }
       `}</style>
       <Nav page={page} setPage={navigate} />
       {page === "home" && <><Hero setPage={navigate} /><ProductCards setPage={navigate} setActiveProduct={setActiveProduct} /><WhySection /><MarketSection /><CTASection setPage={navigate} /></>}
