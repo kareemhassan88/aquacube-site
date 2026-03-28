@@ -8,16 +8,16 @@ const DARK = "#0A1628";
 const GREY_TEXT = "#5A6B7F";
 
 const IMAGES = {
-  logoLight: "/images/logo-light.png",
-  logoDark: "/images/logo-dark.png",
-  greybox: "/images/greybox.png",
-  greenbox: "/images/greenbox.png",
-  whitebox: "/images/whitebox.png",
-  bluebox: "/images/bluebox.png",
-  blueboxCompact: "/images/bluebox-compact.png",
-  greyboxSolar: "/images/greybox-solar.png",
-  productFamily: "/images/product-family.png",
-  heroLifestyle: "/images/hero-lifestyle.png",
+  logoLight: "/images/logo-light.png.png",
+  logoDark: "/images/logo-dark.png.png",
+  greybox: "/images/greybox.png.png",
+  greenbox: "/images/greenbox.png.png",
+  whitebox: "/images/whitebox.png.png",
+  bluebox: "/images/bluebox.png.png",
+  blueboxCompact: "/images/bluebox-compact.png.png",
+  greyboxSolar: "/images/greybox-solar.png.png",
+  productFamily: "/images/product-family.png.png",
+  heroLifestyle: "",
 };
 
 const isReal = (url) => url && url.startsWith("/");
