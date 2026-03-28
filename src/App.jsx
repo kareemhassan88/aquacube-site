@@ -130,7 +130,7 @@ const Nav = ({ page, setPage }) => {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(10,22,40,0.97)" : "transparent", backdropFilter: solid ? "blur(20px)" : "none", borderBottom: solid ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.3s", padding: "0 24px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <div onClick={() => setPage("home")}><Logo light height={52} /></div>
+        <div onClick={() => setPage("home")}><Logo light height={52} navSize /></div>
         <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
           {links.map(l => (
             <button key={l.id} onClick={() => setPage(l.id)} style={{ background: "none", border: "none", color: page === l.id ? AQUA : "rgba(255,255,255,0.7)", fontSize: 14, fontWeight: page === l.id ? 600 : 400, cursor: "pointer", padding: "8px 4px", borderBottom: page === l.id ? `2px solid ${AQUA}` : "2px solid transparent", transition: "all 0.2s", fontFamily: "inherit" }}>{l.label}</button>
