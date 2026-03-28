@@ -115,12 +115,13 @@ const services = [
 
 const Nav = ({ page, setPage }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", h);
     return () => window.removeEventListener("scroll", h);
   }, []);
-  const solid = scrolled || page !== "home";
+  const solid = scrolled || page !== "home" || menuOpen;
   const links = [
     { id: "home", label: "Home" },
     { id: "products", label: "Products" },
@@ -130,14 +131,29 @@ const Nav = ({ page, setPage }) => {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(10,22,40,0.97)" : "transparent", backdropFilter: solid ? "blur(20px)" : "none", borderBottom: solid ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.3s", padding: "0 24px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <div onClick={() => setPage("home")}><Logo light height={52} navSize /></div>
-        <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
+        <div onClick={() => { setPage("home"); setMenuOpen(false); }}><Logo light height={52} navSize /></div>
+        <div className="nav-desktop" style={{ display: "flex", gap: 28, alignItems: "center" }}>
           {links.map(l => (
             <button key={l.id} onClick={() => setPage(l.id)} style={{ background: "none", border: "none", color: page === l.id ? AQUA : "rgba(255,255,255,0.7)", fontSize: 14, fontWeight: page === l.id ? 600 : 400, cursor: "pointer", padding: "8px 4px", borderBottom: page === l.id ? `2px solid ${AQUA}` : "2px solid transparent", transition: "all 0.2s", fontFamily: "inherit" }}>{l.label}</button>
           ))}
           <button onClick={() => setPage("contact")} style={{ background: AQUA, color: WHITE, border: "none", padding: "10px 24px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Get in Touch</button>
         </div>
+        <button className="nav-mobile-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", cursor: "pointer", display: "none", padding: 8 }}>
+          {menuOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          )}
+        </button>
       </div>
+      {menuOpen && (
+        <div className="nav-mobile-menu" style={{ display: "none", flexDirection: "column", gap: 8, padding: "16px 0 24px", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          {links.map(l => (
+            <button key={l.id} onClick={() => { setPage(l.id); setMenuOpen(false); }} style={{ background: page === l.id ? "rgba(31,180,186,0.1)" : "none", border: "none", color: page === l.id ? AQUA : "rgba(255,255,255,0.7)", fontSize: 16, fontWeight: page === l.id ? 600 : 400, cursor: "pointer", padding: "12px 16px", borderRadius: 8, textAlign: "left", fontFamily: "inherit", width: "100%" }}>{l.label}</button>
+          ))}
+          <button onClick={() => { setPage("contact"); setMenuOpen(false); }} style={{ background: AQUA, color: WHITE, border: "none", padding: "12px 24px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", marginTop: 8, width: "100%" }}>Get in Touch</button>
+        </div>
+      )}
     </nav>
   );
 };
