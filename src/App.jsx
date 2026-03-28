@@ -130,7 +130,7 @@ const Nav = ({ page, setPage }) => {
   return (
     <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000, background: solid ? "rgba(10,22,40,0.97)" : "transparent", backdropFilter: solid ? "blur(20px)" : "none", borderBottom: solid ? "1px solid rgba(255,255,255,0.06)" : "none", transition: "all 0.3s", padding: "0 24px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
-        <div onClick={() => setPage("home")}><Logo light height={36} /></div>
+        <div onClick={() => setPage("home")}><Logo light height={52} /></div>
         <div style={{ display: "flex", gap: 28, alignItems: "center" }}>
           {links.map(l => (
             <button key={l.id} onClick={() => setPage(l.id)} style={{ background: "none", border: "none", color: page === l.id ? AQUA : "rgba(255,255,255,0.7)", fontSize: 14, fontWeight: page === l.id ? 600 : 400, cursor: "pointer", padding: "8px 4px", borderBottom: page === l.id ? `2px solid ${AQUA}` : "2px solid transparent", transition: "all 0.2s", fontFamily: "inherit" }}>{l.label}</button>
@@ -268,7 +268,7 @@ const MarketSection = () => (
 
 const CTASection = ({ setPage }) => (
   <section style={{ padding: "80px 24px", background: `linear-gradient(160deg, ${NAVY}, ${DARK})`, textAlign: "center" }}>
-    <div style={{ marginBottom: 20 }}><Logo light height={32} /></div>
+    <div style={{ marginBottom: 20 }}><Logo light height={48} /></div>
     <h2 style={{ fontSize: 32, fontWeight: 700, color: "white", margin: "0 0 14px" }}>Ready to Transform Your Water Management?</h2>
     <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 480, margin: "0 auto 36px", lineHeight: 1.7 }}>Join the growing network deploying AquaCube solutions across the MENA region.</p>
     <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
@@ -281,7 +281,7 @@ const CTASection = ({ setPage }) => (
 const ProductsHub = ({ setPage, setActiveProduct }) => (
   <div>
     <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-      <Logo light height={32} />
+      <Logo light height={48} />
       <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>AquaCube Product Family</h1>
       <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>Four modular water treatment solutions — designed to operate independently or as a complete integrated water management system.</p>
     </section>
@@ -388,7 +388,7 @@ const ProductDetail = ({ productId, setPage, setActiveProduct }) => {
 const ServicesPage = ({ setPage }) => (
   <div>
     <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-      <Logo light height={32} />
+      <Logo light height={48} />
       <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>End-to-End Services</h1>
       <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>From initial assessment to ongoing maintenance, AquaCube provides comprehensive water management services across the project lifecycle.</p>
     </section>
@@ -416,7 +416,7 @@ const ContactPage = () => {
   return (
     <div>
       <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-        <Logo light height={32} />
+        <Logo light height={48} />
         <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>Let's Talk Water</h1>
         <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 460, margin: "0 auto", lineHeight: 1.7 }}>Whether you're a customer, investor, or partner — we'd love to hear from you.</p>
       </section>
@@ -482,7 +482,7 @@ const Footer = ({ setPage, setActiveProduct }) => (
     <div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 36, marginBottom: 44 }}>
         <div style={{ minWidth: 220 }}>
-          <Logo light height={32} />
+          <Logo light height={48} />
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 14, maxWidth: 260, lineHeight: 1.65 }}>Modular smart water treatment solutions engineered for the MENA region.</p>
         </div>
         <div style={{ display: "flex", gap: 56, flexWrap: "wrap" }}>
