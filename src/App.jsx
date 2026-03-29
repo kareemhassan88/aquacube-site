@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const AQUA = "#1FB4BA";
 const NAVY = "#093D79";
@@ -68,52 +68,76 @@ const MailIcon = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="non
 const PhoneIcon = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
 const MapPinIcon = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
 const ArrowUpIcon = () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M18 15l-6-6-6 6"/></svg>;
+const BoltIcon = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>;
+const HeartIcon = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
+const DollarIcon = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>;
+const BoxIcon = () => <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={AQUA} strokeWidth="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>;
 
 const products = [
   {
-    id: "greybox", name: "GreyBox", tagline: "Greywater Treatment System",
+    id: "greybox", name: "GreyBox", tagline: "Greywater Recycling System",
     color: "#6B7280", image: IMAGES.greybox,
-    description: "Advanced greywater recycling unit designed for residential, commercial, and institutional applications. Treats shower, sink, and laundry water for safe reuse in irrigation and non-potable applications.",
-    features: ["Multi-stage filtration", "IoT-enabled monitoring dashboard", "Solar panel compatible", "Compact vertical design with casters", "In/Out pipe connections", "Real-time water quality display"],
-    specs: { capacity: "1,000 – 5,000 L/day", dimensions: "600 × 600 × 1,400 mm", power: "Solar / Grid hybrid", monitoring: "Built-in touchscreen + remote IoT" },
+    shortDesc: "Recycles car wash, shower, sink, and laundry water for safe non-potable reuse. IoT-monitored, solar-ready, compact design.",
+    description: "Compact greywater treatment unit that recycles car washing water, shower, sink, and laundry water for safe reuse in non-potable applications. Achieves up to 75% water recovery with less than 1 year ROI. IoT-monitored with solar-ready design.",
+    features: ["Multi-stage filtration, biological treatment, and UV disinfection", "Up to 75% water recovery rate", "Less than 1 year return on investment", "IoT-enabled monitoring dashboard with live water savings and cost-recovery tracking", "Solar panel compatible for off-grid operation", "Compact vertical design with casters for mobility", "In/Out pipe connections for plug-and-play installation", "Real-time water quality display", "Output water free from particles, chemicals, biological hazards, and minerals", "Safe disinfected water for confident recycling and reuse"],
+    specs: { capacities: "5,000 – 50,000 L/day", dimensions: "100 × 100 × 200 cm", power: "Solar / Grid / Hybrid", monitoring: "Built-in touchscreen + remote IoT + mobile application" },
+    applications: ["Residential villas and apartment complexes", "Car wash stations", "Hotels and resorts", "Schools and universities", "Mosques and public facilities", "Commercial buildings and offices", "Laundry and cleaning facilities"],
     gradient: "linear-gradient(135deg, #4B5563, #374151)"
   },
   {
-    id: "greenbox", name: "GreenBox", tagline: "Smart Aquaponics Module",
+    id: "greenbox", name: "GreenBox", tagline: "Oil & Grease Separation System",
     color: "#166534", image: IMAGES.greenbox,
-    description: "Decoupled smart aquaponics system designed for arid and semi-arid climates. Combines fish farming with soilless plant cultivation in a modular, water-efficient enclosed system.",
-    features: ["Decoupled aquaponics design", "Climate-controlled environment", "Nutrient cycling automation", "Top-mounted monitoring display", "Heavy-duty construction", "Ideal for GCC/arid regions"],
-    specs: { capacity: "50 – 200 kg fish/cycle", dimensions: "1,200 × 600 × 900 mm", power: "Grid / Solar optional", monitoring: "Integrated touchscreen panel" },
+    shortDesc: "Automated oil and grease separation for commercial kitchens, restaurants, and food processing. Real-time monitoring, minimal maintenance.",
+    description: "Compact gravity-based oil-water separator for the effective removal of non-emulsified oils, greases, and hydrocarbons from wastewater. Utilizes static gravity separation and coalescence technology — no moving parts, no chemicals required. Prevents sewer clogging, protects downstream treatment systems, and ensures environmental discharge compliance.",
+    features: ["Static gravity separation at atmospheric pressure — no moving machinery", "Coalescence plate technology for enhanced oil droplet capture", "Complete removal of floating oil via automatic suction system", "No chemical dosing required — fully passive operation", "Prevents accumulation and clogging in downstream sewer and treatment systems", "Heavy-duty construction for continuous industrial use", "Real-time monitoring display", "Compliant with environmental discharge standards"],
+    specs: { capacities: "3,000 – 15,000 L/day", dimensions: "160 × 100 × 150 cm", power: "Minimal — gravity-driven passive system", monitoring: "Integrated touchscreen panel + IoT system (optional)" },
+    applications: ["Commercial kitchens and restaurants", "Car workshops and car washes", "Food processing facilities", "Factories and industrial plants", "Hotels and hospitality", "Petrochemical and mechanical workshops"],
     gradient: "linear-gradient(135deg, #166534, #14532d)"
   },
   {
-    id: "whitebox", name: "WhiteBox", tagline: "Drinking Water Purification",
+    id: "whitebox", name: "WhiteBox", tagline: "Portable Desalination Unit",
     color: "#94A3B8", image: IMAGES.whitebox,
-    description: "Multi-stage drinking water purification unit delivering safe, clean potable water. Designed for households, schools, clinics, and community facilities in water-stressed regions.",
-    features: ["RO + UV purification stages", "TDS and pH monitoring", "Compact horizontal footprint", "Stainless steel build", "Low maintenance design", "Meets WHO drinking water standards"],
-    specs: { capacity: "500 – 3,000 L/day", dimensions: "1,000 × 500 × 700 mm", power: "Grid powered", monitoring: "Top-mount LCD panel" },
+    shortDesc: "Portable desalination for brackish, saline, and sea water sources. Clean freshwater for coastal, marine, and emergency operations.",
+    description: "Compact portable desalination system for saline brackish water and sea water sources. Delivers clean freshwater for coastal communities, ships, fishing boats, field operations, and emergency response scenarios.",
+    features: ["Handles brackish, saline, and sea water sources", "Portable and rapid-deploy design", "TDS and pH real-time monitoring", "Stainless steel construction for marine-grade durability", "Low energy consumption", "Meets WHO drinking water standards", "IoT-enabled remote monitoring", "Plug-and-play installation — operational within hours"],
+    specs: { capacities: "1,000 – 10,000 L/day", dimensions: "160 × 100 × 150 cm", power: "Solar / Grid / Hybrid", monitoring: "Built-in touchscreen + remote IoT + mobile application" },
+    applications: ["Coastal communities", "Ships and fishing boats", "Military and field operations", "Emergency and disaster response", "Remote islands and offshore platforms", "Resort and tourism facilities", "Precision and protected agriculture (hydroponics and aquaponics)"],
     gradient: "linear-gradient(135deg, #64748B, #475569)"
   },
   {
-    id: "bluebox", name: "BlueBox", tagline: "Wastewater Recycling Unit",
+    id: "bluebox", name: "BlueBox", tagline: "RO Drinking Water System",
     color: NAVY, image: IMAGES.bluebox,
-    description: "Industrial-grade wastewater treatment and recycling system for commercial and municipal applications. Advanced biological and chemical treatment stages ensure compliance with discharge and reuse standards.",
-    features: ["Advanced biological treatment", "Full IoT dashboard with filter health", "pH, TDS, and flow rate monitoring", "Compact vertical design", "In/Out connection ports", "Regulatory compliance ready"],
-    specs: { capacity: "5,000 – 20,000 L/day", dimensions: "600 × 600 × 1,400 mm", power: "Grid / Generator", monitoring: "7\" touchscreen + cloud dashboard" },
+    shortDesc: "Reverse osmosis purification with IoT monitoring. Potable water for households, schools, clinics, farms, and industrial facilities.",
+    description: "Advanced reverse osmosis drinking water purification unit with IoT-enabled monitoring. Delivers potable water for households, schools, clinics, farms, and industrial facilities.",
+    features: ["Advanced reverse osmosis purification", "Full IoT dashboard with filter diagnosis, status monitoring, and water production tracking", "pH, TDS, and flow rate tracking", "Live water consumption and cost analytics", "Compact vertical design with casters for mobility", "Cloud-connected remote management via mobile application", "UV disinfection stage for guaranteed safe drinking water", "Plug-and-play installation"],
+    specs: { capacities: "1,000 – 20,000 L/day", dimensions: "100 × 100 × 200 cm", power: "Solar / Grid / Hybrid", monitoring: "Built-in touchscreen + remote IoT + mobile application" },
+    applications: ["Schools and universities", "Office buildings", "Clinics and pharmacies", "Hospitals", "Government buildings", "Gyms and sports centres", "Mosques", "Farms", "Industrial facilities", "Residential compounds", "Rural villages"],
     gradient: `linear-gradient(135deg, ${NAVY}, #061E47)`
   }
 ];
 
 const services = [
-  { icon: <ToolIcon />, title: "Consultation & Feasibility Studies", desc: "Site assessment, water audit, and technical feasibility analysis tailored to your location and requirements." },
-  { icon: <CubeIcon />, title: "System Design & Customization", desc: "Custom-configured AquaCube systems matched to your capacity, space, and water quality requirements." },
-  { icon: <ShieldIcon />, title: "Installation & Commissioning", desc: "Professional on-site installation, system calibration, and performance verification by certified engineers." },
-  { icon: <WifiIcon />, title: "IoT Monitoring & Maintenance", desc: "24/7 remote monitoring, predictive maintenance alerts, and scheduled service visits to ensure peak performance." },
-  { icon: <GlobeIcon />, title: "Training & Capacity Building", desc: "Comprehensive operator training programs, maintenance manuals, and ongoing technical support." },
-  { icon: <SunIcon />, title: "Solar Integration", desc: "Off-grid and hybrid solar power system design and integration for energy-independent water treatment." }
+  { icon: <ToolIcon />, title: "Consultation & Feasibility Studies", desc: "On-site water audit, needs assessment, and detailed technical feasibility analysis tailored to your location, capacity, and budget." },
+  { icon: <CubeIcon />, title: "System Design & Customization", desc: "Custom-configured AquaCube systems engineered to your exact specifications — capacity, space constraints, water source, and output requirements." },
+  { icon: <BoltIcon />, title: "Plug & Play Installation", desc: "Factory-calibrated units delivered and professionally commissioned on-site within 48 hours. Minimal civil works required." },
+  { icon: <WifiIcon />, title: "IoT Monitoring & Analytics", desc: "24/7 cloud-based monitoring with real-time diagnostics, water savings tracking, cost analytics, and predictive maintenance alerts." },
+  { icon: <ShieldIcon />, title: "Preventive Maintenance", desc: "Scheduled service visits, filter replacements, and system health checks to ensure uninterrupted peak performance." },
+  { icon: <GlobeIcon />, title: "Training & Capacity Building", desc: "Comprehensive hands-on operator training, maintenance manuals, and ongoing technical support for your team." },
+  { icon: <SunIcon />, title: "Solar & Off-Grid Integration", desc: "Hybrid solar/grid power system design and installation for energy-independent water treatment in remote locations." },
+  { icon: <HeartIcon />, title: "Spare Parts & Lifetime Support", desc: "Guaranteed spare parts availability, software updates, and dedicated technical support throughout the system's lifetime." }
 ];
 
-const Nav = ({ page, setPage }) => {
+const sectors = [
+  { emoji: "🏠", title: "Residential", desc: "Homes, villas, and apartment complexes — greywater recycling and clean drinking water for everyday living." },
+  { emoji: "🏢", title: "Commercial", desc: "Hotels, restaurants, shopping malls, and offices — water treatment, grease separation, and cost-efficient reuse systems." },
+  { emoji: "🌾", title: "Agricultural", desc: "Farms, greenhouses, and livestock operations — irrigation-grade water recovery and desalination for arid farming." },
+  { emoji: "🏫", title: "Institutional", desc: "Schools, hospitals, clinics, mosques, and government buildings — safe potable water and wastewater management at scale." },
+  { emoji: "🏭", title: "Industrial", desc: "Factories, food processing, and manufacturing plants — process water treatment and regulatory-compliant discharge." },
+  { emoji: "🚨", title: "Humanitarian", desc: "Refugee camps, disaster response, and remote field operations — rapid-deploy portable water purification and desalination." }
+];
+
+// NAV
+const Nav = ({ page, setPage, solutionsRef }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -158,7 +182,8 @@ const Nav = ({ page, setPage }) => {
   );
 };
 
-const Hero = ({ setPage }) => (
+// HERO — Section 1
+const Hero = ({ setPage, solutionsRef }) => (
   <section style={{ background: `linear-gradient(160deg, ${DARK} 0%, ${NAVY} 60%, #0D5070 100%)`, minHeight: "100vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden", padding: "100px 24px 80px" }}>
     <div style={{ position: "absolute", inset: 0, opacity: 0.04, backgroundImage: "radial-gradient(circle at 1px 1px, rgba(31,180,186,0.6) 1px, transparent 0)", backgroundSize: "48px 48px" }} />
     <div style={{ position: "absolute", top: "5%", right: "-10%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(31,180,186,0.06) 0%, transparent 70%)" }} />
@@ -166,25 +191,31 @@ const Hero = ({ setPage }) => (
       <div style={{ flex: "1 1 400px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(31,180,186,0.08)", border: "1px solid rgba(31,180,186,0.15)", borderRadius: 50, padding: "8px 18px", marginBottom: 28 }}>
           <div style={{ width: 8, height: 8, borderRadius: "50%", background: AQUA }} />
-          <span style={{ color: AQUA, fontSize: 13, fontWeight: 500, letterSpacing: "0.5px" }}>Modular Smart Water Solutions</span>
+          <span style={{ color: AQUA, fontSize: 13, fontWeight: 500, letterSpacing: "0.5px" }}>Next-Gen Compact Water Solutions</span>
         </div>
         <h1 style={{ fontSize: "clamp(36px, 5vw, 54px)", fontWeight: 700, color: "white", lineHeight: 1.12, margin: "0 0 24px", letterSpacing: "-0.5px" }}>
-          Clean Water,{" "}<span style={{ color: AQUA }}>Smart Technology</span><br />for Arid Climates
+          Smart Water Solutions,{" "}<span style={{ color: AQUA }}>Engineered for Impact</span>
         </h1>
-        <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, margin: "0 0 40px", maxWidth: 500 }}>
-          AquaCube delivers modular, IoT-enabled water treatment systems designed for the MENA region. From greywater recycling to drinking water purification — deployed where it matters most.
+        <p style={{ fontSize: 17, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, margin: "0 0 40px", maxWidth: 520 }}>
+          AquaCube delivers compact, IoT-powered water treatment systems that combine frontier technology with unmatched affordability. Robust, low-maintenance, and built at a fraction of traditional CAPEX — designed for the MENA region and ready for global reach.
         </p>
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-          <button onClick={() => setPage("products")} style={{ background: AQUA, color: WHITE, border: "none", padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Explore Products</button>
-          <button onClick={() => setPage("contact")} style={{ background: "transparent", color: "white", border: "1.5px solid rgba(255,255,255,0.25)", padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Partner With Us</button>
+          <button onClick={() => { if (solutionsRef && solutionsRef.current) { solutionsRef.current.scrollIntoView({ behavior: "smooth" }); } }} style={{ background: AQUA, color: WHITE, border: "none", padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Explore Products</button>
+          <button onClick={() => setPage("contact")} style={{ background: "transparent", color: "white", border: "1.5px solid rgba(255,255,255,0.25)", padding: "14px 32px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Request a Demo</button>
         </div>
         <div style={{ display: "flex", gap: 48, marginTop: 56 }}>
-          {[["4", "Product Lines"], ["3+", "Countries"], ["IoT", "Enabled"]].map(([n, l], i) => (
-            <div key={i}>
-              <div style={{ fontSize: 30, fontWeight: 700, color: AQUA }}>{n}</div>
-              <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 4, letterSpacing: "0.5px" }}>{l}</div>
-            </div>
-          ))}
+          <div>
+            <div style={{ fontSize: 30, fontWeight: 700, color: AQUA }}>4</div>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 4, letterSpacing: "0.5px" }}>Product Lines</div>
+          </div>
+          <div style={{ position: "relative", cursor: "pointer" }} title="Residential · Commercial · Agricultural · Institutional · Municipal · Humanitarian">
+            <div style={{ fontSize: 30, fontWeight: 700, color: AQUA }}>Multi</div>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 4, letterSpacing: "0.5px" }}>Sector</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 30, fontWeight: 700, color: AQUA }}>IoT</div>
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 4, letterSpacing: "0.5px" }}>Enabled</div>
+          </div>
         </div>
       </div>
       <div style={{ flex: "1 1 360px", display: "flex", justifyContent: "center" }}>
@@ -199,13 +230,14 @@ const Hero = ({ setPage }) => (
   </section>
 );
 
-const ProductCards = ({ setPage, setActiveProduct }) => (
-  <section style={{ padding: "96px 24px", background: WHITE }}>
+// PRODUCT CARDS — Section 2
+const ProductCards = ({ setPage, setActiveProduct, solutionsRef }) => (
+  <section ref={solutionsRef} style={{ padding: "96px 24px", background: WHITE }}>
     <div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 64 }}>
         <span style={{ color: AQUA, fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: 3 }}>Our Solutions</span>
-        <h2 style={{ fontSize: 36, fontWeight: 700, color: NAVY, margin: "14px 0 16px" }}>Four Products, One Mission</h2>
-        <p style={{ fontSize: 16, color: GREY_TEXT, maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>Each AquaCube module targets a specific water challenge — designed to work independently or as an integrated system.</p>
+        <h2 style={{ fontSize: 36, fontWeight: 700, color: NAVY, margin: "14px 0 16px" }}>Four Systems, Frontier Innovation</h2>
+        <p style={{ fontSize: 16, color: GREY_TEXT, maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>Each AquaCube unit is purpose-built for a specific water treatment challenge — deploy individually or combine into a complete integrated water management system.</p>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
         {products.map(p => (
@@ -218,7 +250,7 @@ const ProductCards = ({ setPage, setActiveProduct }) => (
             </div>
             <h3 style={{ fontSize: 20, fontWeight: 700, color: NAVY, margin: "0 0 4px" }}>{p.name}</h3>
             <p style={{ fontSize: 14, color: AQUA, fontWeight: 500, margin: "0 0 10px" }}>{p.tagline}</p>
-            <p style={{ fontSize: 13, color: GREY_TEXT, lineHeight: 1.65, margin: "0 0 14px" }}>{p.description.slice(0, 110)}...</p>
+            <p style={{ fontSize: 13, color: GREY_TEXT, lineHeight: 1.65, margin: "0 0 14px" }}>{p.shortDesc}</p>
             <div style={{ display: "flex", alignItems: "center", gap: 4, color: AQUA, fontSize: 13, fontWeight: 600 }}>View Details <ChevronRight /></div>
           </div>
         ))}
@@ -227,21 +259,24 @@ const ProductCards = ({ setPage, setActiveProduct }) => (
   </section>
 );
 
+// WHY AQUACUBE — Section 3
 const WhySection = () => (
   <section style={{ padding: "96px 24px", background: NAVY }}>
     <div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ textAlign: "center", marginBottom: 64 }}>
         <span style={{ color: AQUA, fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: 3 }}>Why AquaCube</span>
-        <h2 style={{ fontSize: 36, fontWeight: 700, color: "white", margin: "14px 0" }}>Built for the Region's Toughest Challenges</h2>
+        <h2 style={{ fontSize: 36, fontWeight: 700, color: "white", margin: "14px 0" }}>The AquaCube Advantage</h2>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
         {[
-          { icon: <CubeIcon />, title: "Modular Design", desc: "Deploy single units or combine into integrated systems. Scale on demand." },
-          { icon: <WifiIcon />, title: "IoT-Enabled", desc: "Real-time monitoring, remote diagnostics, and predictive maintenance via cloud." },
-          { icon: <SunIcon />, title: "Solar Compatible", desc: "Off-grid ready with hybrid solar/grid power for remote deployments." },
-          { icon: <ShieldIcon />, title: "Arid-Climate Proven", desc: "Engineered for high-temperature, low-humidity MENA environments." },
-          { icon: <GlobeIcon />, title: "Local Production", desc: "Manufactured in Egypt, serviced regionally — reducing cost and lead times." },
-          { icon: <ToolIcon />, title: "Full Lifecycle Support", desc: "From feasibility to maintenance — we're with you at every step." }
+          { icon: <CubeIcon />, title: "Compact & Modular", desc: "Space-efficient units that deploy individually or combine into full-scale water management systems. Scale as you grow." },
+          { icon: <WifiIcon />, title: "IoT-Powered", desc: "Real-time monitoring, remote diagnostics, and predictive maintenance through a cloud dashboard — plus built-in water savings analytics and cost-recovery tracking." },
+          { icon: <SunIcon />, title: "Solar-Ready", desc: "Off-grid capable with hybrid solar/grid power options — ideal for remote sites and off-network locations." },
+          { icon: <DollarIcon />, title: "Ultra-Low CAPEX", desc: "Frontier engineering and smart design deliver enterprise-grade performance at a fraction of conventional system costs." },
+          { icon: <ShieldIcon />, title: "Minimal Maintenance", desc: "Robust construction and automated systems mean less downtime, fewer service calls, and lower operating costs." },
+          { icon: <BoltIcon />, title: "Plug & Play Installation", desc: "Factory-calibrated units arrive ready to connect. On-site installation and commissioning completed within 48 hours of delivery." },
+          { icon: <HeartIcon />, title: "Lifetime Support", desc: "From initial feasibility study through decades of operation — ongoing technical support, software updates, and spare parts availability guaranteed." },
+          { icon: <GlobeIcon />, title: "Global-Ready", desc: "Cutting-edge technologies manufactured locally with regional service networks — engineered for MENA conditions, ready for worldwide deployment." }
         ].map((item, i) => (
           <div key={i} style={{ background: "rgba(255,255,255,0.04)", borderRadius: 14, padding: 28, border: "1px solid rgba(255,255,255,0.06)", transition: "all 0.3s" }}
             onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
@@ -256,25 +291,20 @@ const WhySection = () => (
   </section>
 );
 
-const MarketSection = () => (
+// SECTORS — Section 4
+const SectorsSection = () => (
   <section style={{ padding: "96px 24px", background: LIGHT_BG }}>
     <div style={{ maxWidth: 1200, margin: "0 auto", textAlign: "center" }}>
-      <span style={{ color: AQUA, fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: 3 }}>Market Opportunity</span>
-      <h2 style={{ fontSize: 36, fontWeight: 700, color: NAVY, margin: "14px 0 56px" }}>Serving the World's Most Water-Stressed Region</h2>
+      <span style={{ color: AQUA, fontSize: 12, fontWeight: 600, textTransform: "uppercase", letterSpacing: 3 }}>Where We Serve</span>
+      <h2 style={{ fontSize: 36, fontWeight: 700, color: NAVY, margin: "14px 0 56px" }}>Solutions Across Every Sector</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20 }}>
-        {[
-          { country: "Jordan", flag: "🇯🇴", status: "Primary Market", detail: "JV with Flow Group — pilot & scale" },
-          { country: "Saudi Arabia", flag: "🇸🇦", status: "Expansion Market", detail: "Institutional & agricultural demand" },
-          { country: "Egypt", flag: "🇪🇬", status: "Production Hub", detail: "Manufacturing & R&D center" },
-          { country: "Syria · Iraq · Lebanon", flag: "🌍", status: "Phase 2 Markets", detail: "Post-conflict water infrastructure" }
-        ].map((m, i) => (
+        {sectors.map((s, i) => (
           <div key={i} style={{ background: WHITE, borderRadius: 14, padding: 28, border: "1px solid #E8EDF2", transition: "all 0.2s" }}
             onMouseEnter={e => e.currentTarget.style.boxShadow = "0 8px 32px rgba(9,61,121,0.06)"}
             onMouseLeave={e => e.currentTarget.style.boxShadow = ""}>
-            <div style={{ fontSize: 36, marginBottom: 14 }}>{m.flag}</div>
-            <h3 style={{ fontSize: 18, fontWeight: 700, color: NAVY, margin: "0 0 4px" }}>{m.country}</h3>
-            <div style={{ fontSize: 12, fontWeight: 600, color: AQUA, marginBottom: 8, letterSpacing: "0.5px" }}>{m.status}</div>
-            <p style={{ fontSize: 13, color: GREY_TEXT, margin: 0, lineHeight: 1.5 }}>{m.detail}</p>
+            <div style={{ fontSize: 36, marginBottom: 14 }}>{s.emoji}</div>
+            <h3 style={{ fontSize: 18, fontWeight: 700, color: NAVY, margin: "0 0 8px" }}>{s.title}</h3>
+            <p style={{ fontSize: 13, color: GREY_TEXT, margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
           </div>
         ))}
       </div>
@@ -282,24 +312,26 @@ const MarketSection = () => (
   </section>
 );
 
+// CTA — Section 5
 const CTASection = ({ setPage }) => (
   <section style={{ padding: "80px 24px", background: `linear-gradient(160deg, ${NAVY}, ${DARK})`, textAlign: "center" }}>
-    <div style={{ marginBottom: 20 }}><Logo light height={48} /></div>
+    <div style={{ marginBottom: 20 }}><Logo light height={32} /></div>
     <h2 style={{ fontSize: 32, fontWeight: 700, color: "white", margin: "0 0 14px" }}>Ready to Transform Your Water Management?</h2>
-    <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 480, margin: "0 auto 36px", lineHeight: 1.7 }}>Join the growing network deploying AquaCube solutions across the MENA region.</p>
+    <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 520, margin: "0 auto 36px", lineHeight: 1.7 }}>Whether you need a single unit or a full-scale deployment, our team is ready to design the right solution for you.</p>
     <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
       <button onClick={() => setPage("contact")} style={{ background: AQUA, color: WHITE, border: "none", padding: "14px 36px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Request a Demo</button>
-      <button onClick={() => setPage("contact")} style={{ background: "transparent", color: "white", border: "1.5px solid rgba(255,255,255,0.2)", padding: "14px 36px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Become a Partner</button>
+      <button onClick={() => setPage("products")} style={{ background: "transparent", color: "white", border: "1.5px solid rgba(255,255,255,0.2)", padding: "14px 36px", borderRadius: 8, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: "inherit" }}>Explore Products</button>
     </div>
   </section>
 );
 
+// PRODUCTS HUB — Sections 6 & 7
 const ProductsHub = ({ setPage, setActiveProduct }) => (
   <div>
     <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-      <Logo light height={48} />
-      <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>AquaCube Product Family</h1>
-      <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>Four modular water treatment solutions — designed to operate independently or as a complete integrated water management system.</p>
+      <Logo light height={32} />
+      <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>The AquaCube Product Family</h1>
+      <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 600, margin: "0 auto", lineHeight: 1.7 }}>Four compact, IoT-powered water treatment systems — each engineered for a specific challenge, built to work alone or as an integrated solution.</p>
     </section>
     <section style={{ padding: "64px 24px", background: LIGHT_BG }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -329,6 +361,7 @@ const ProductsHub = ({ setPage, setActiveProduct }) => (
   </div>
 );
 
+// PRODUCT DETAIL — Sections 8-11
 const ProductDetail = ({ productId, setPage, setActiveProduct }) => {
   const p = products.find(x => x.id === productId) || products[0];
   const others = products.filter(x => x.id !== productId);
@@ -376,16 +409,31 @@ const ProductDetail = ({ productId, setPage, setActiveProduct }) => {
           </div>
         </div>
       </section>
-      <section style={{ padding: "48px 24px", background: WHITE }}>
+      {p.applications && (
+        <section style={{ padding: "64px 24px", background: WHITE }}>
+          <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <h2 style={{ fontSize: 26, fontWeight: 700, color: NAVY, marginBottom: 28 }}>Applications</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
+              {p.applications.map((a, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, padding: 16, background: LIGHT_BG, borderRadius: 10 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: AQUA, flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: DARK }}>{a}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+      <section style={{ padding: "48px 24px", background: LIGHT_BG }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <h2 style={{ fontSize: 22, fontWeight: 700, color: NAVY, marginBottom: 20 }}>Other Products</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 14 }}>
             {others.map(o => (
               <div key={o.id} onClick={() => { setActiveProduct(o.id); window.scrollTo(0, 0); }}
-                style={{ display: "flex", alignItems: "center", gap: 16, background: LIGHT_BG, borderRadius: 12, padding: 16, cursor: "pointer", border: "1px solid #E8EDF2", transition: "all 0.2s" }}
+                style={{ display: "flex", alignItems: "center", gap: 16, background: WHITE, borderRadius: 12, padding: 16, cursor: "pointer", border: "1px solid #E8EDF2", transition: "all 0.2s" }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = AQUA + "40"}
                 onMouseLeave={e => e.currentTarget.style.borderColor = "#E8EDF2"}>
-                <div style={{ width: 60, height: 60, borderRadius: 8, background: WHITE, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: 4 }}>
+                <div style={{ width: 60, height: 60, borderRadius: 8, background: LIGHT_BG, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, overflow: "hidden", padding: 4 }}>
                   <ProductImage src={o.image} alt={o.name} style={{ maxHeight: 52 }} />
                 </div>
                 <div>
@@ -401,12 +449,13 @@ const ProductDetail = ({ productId, setPage, setActiveProduct }) => {
   );
 };
 
+// SERVICES — Sections 12 & 13
 const ServicesPage = ({ setPage }) => (
   <div>
     <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-      <Logo light height={48} />
-      <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>End-to-End Services</h1>
-      <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>From initial assessment to ongoing maintenance, AquaCube provides comprehensive water management services across the project lifecycle.</p>
+      <Logo light height={32} />
+      <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>End-to-End Water Solutions</h1>
+      <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 580, margin: "0 auto", lineHeight: 1.7 }}>From initial consultation through decades of operation, AquaCube provides comprehensive services across the entire project lifecycle — so you can focus on results, not infrastructure.</p>
     </section>
     <section style={{ padding: "64px 24px", background: LIGHT_BG }}>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
@@ -427,14 +476,15 @@ const ServicesPage = ({ setPage }) => (
   </div>
 );
 
+// CONTACT — Sections 14 & 15
 const ContactPage = () => {
   const [formType, setFormType] = useState("customer");
   return (
     <div>
       <section style={{ background: `linear-gradient(160deg, ${DARK}, ${NAVY})`, padding: "130px 24px 70px", textAlign: "center" }}>
-        <Logo light height={48} />
+        <Logo light height={32} />
         <h1 style={{ fontSize: 42, fontWeight: 700, color: "white", margin: "20px 0 14px" }}>Let's Talk Water</h1>
-        <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 460, margin: "0 auto", lineHeight: 1.7 }}>Whether you're a customer, investor, or partner — we'd love to hear from you.</p>
+        <p style={{ fontSize: 16, color: "rgba(255,255,255,0.6)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>Whether you need a system quote, a technical consultation, or a partnership discussion — our team is ready to help.</p>
       </section>
       <section style={{ padding: "64px 24px", background: LIGHT_BG }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", gap: 32, flexWrap: "wrap" }}>
@@ -447,7 +497,7 @@ const ContactPage = () => {
                   </button>
                 ))}
               </div>
-              {["Full Name", "Email Address", "Organization", formType === "customer" ? "Country / Region" : "Investment Focus"].map((label, i) => (
+              {["Full Name", "Email Address", "Organization / Company", formType === "customer" ? "Country / Region" : "Investment Focus"].map((label, i) => (
                 <div key={i} style={{ marginBottom: 16 }}>
                   <label style={{ fontSize: 12, fontWeight: 600, color: NAVY, display: "block", marginBottom: 6 }}>{label}</label>
                   <input style={{ width: "100%", padding: "11px 14px", borderRadius: 8, border: "1.5px solid #D1D5DB", fontSize: 14, boxSizing: "border-box", fontFamily: "inherit" }} placeholder={label} />
@@ -464,26 +514,23 @@ const ContactPage = () => {
             <div style={{ background: WHITE, borderRadius: 16, padding: 28, border: "1px solid #E8EDF2", marginBottom: 16 }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: NAVY, margin: "0 0 20px" }}>Our Offices</h3>
               {[
-                { city: "Amman, Jordan", detail: "Regional HQ & Operations" },
-                { city: "Cairo, Egypt", detail: "Manufacturing & R&D" },
-                { city: "Riyadh, Saudi Arabia", detail: "GCC Market Development" }
+                { city: "Amman, Jordan" },
+                { city: "Cairo, Egypt" },
+                { city: "Riyadh, Saudi Arabia" }
               ].map((o, i) => (
-                <div key={i} style={{ display: "flex", gap: 12, marginBottom: 16, alignItems: "flex-start" }}>
+                <div key={i} style={{ display: "flex", gap: 12, marginBottom: 16, alignItems: "center" }}>
                   <MapPinIcon />
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>{o.city}</div>
-                    <div style={{ fontSize: 12, color: GREY_TEXT }}>{o.detail}</div>
-                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: NAVY }}>{o.city}</div>
                 </div>
               ))}
             </div>
             <div style={{ background: WHITE, borderRadius: 16, padding: 28, border: "1px solid #E8EDF2" }}>
               <h3 style={{ fontSize: 18, fontWeight: 700, color: NAVY, margin: "0 0 20px" }}>Direct Contact</h3>
               <div style={{ display: "flex", gap: 12, marginBottom: 14, alignItems: "center" }}>
-                <MailIcon /><span style={{ fontSize: 14, color: DARK }}>info@aquacube.tech</span>
+                <MailIcon /><span style={{ fontSize: 14, color: DARK }}>admin@aquacube.info</span>
               </div>
               <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                <PhoneIcon /><span style={{ fontSize: 14, color: DARK }}>+962 6 XXX XXXX</span>
+                <PhoneIcon /><span style={{ fontSize: 14, color: DARK }}>+962 79 150 79 49</span>
               </div>
             </div>
           </div>
@@ -493,13 +540,22 @@ const ContactPage = () => {
   );
 };
 
+// FOOTER — Section 16
 const Footer = ({ setPage, setActiveProduct }) => (
   <footer style={{ background: DARK, padding: "56px 24px 24px", borderTop: `3px solid ${AQUA}` }}>
     <div style={{ maxWidth: 1200, margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 36, marginBottom: 44 }}>
         <div style={{ minWidth: 220 }}>
-          <Logo light height={48} />
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 14, maxWidth: 260, lineHeight: 1.65 }}>Modular smart water treatment solutions engineered for the MENA region.</p>
+          <Logo light height={32} />
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginTop: 14, maxWidth: 280, lineHeight: 1.65 }}>Next-gen compact water treatment systems powered by IoT and frontier technology. Designed for MENA, built for global reach.</p>
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <MailIcon /><span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>admin@aquacube.info</span>
+            </div>
+            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+              <PhoneIcon /><span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>+962 79 150 79 49</span>
+            </div>
+          </div>
         </div>
         <div style={{ display: "flex", gap: 56, flexWrap: "wrap" }}>
           <div>
@@ -512,12 +568,6 @@ const Footer = ({ setPage, setActiveProduct }) => (
             <h4 style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: 2, marginBottom: 16 }}>Company</h4>
             {[["Products", "products"], ["Services", "services"], ["Contact", "contact"]].map(([l, id]) => (
               <div key={id} onClick={() => setPage(id)} style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 10, cursor: "pointer" }}>{l}</div>
-            ))}
-          </div>
-          <div>
-            <h4 style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: 2, marginBottom: 16 }}>Markets</h4>
-            {["Jordan", "Saudi Arabia", "Egypt"].map(m => (
-              <div key={m} style={{ fontSize: 13, color: "rgba(255,255,255,0.55)", marginBottom: 10 }}>{m}</div>
             ))}
           </div>
         </div>
@@ -547,6 +597,7 @@ const ScrollTop = () => {
 export default function App() {
   const [page, setPage] = useState("home");
   const [activeProduct, setActiveProduct] = useState("greybox");
+  const solutionsRef = useRef(null);
   const navigate = (p) => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
   return (
@@ -563,8 +614,8 @@ export default function App() {
           .nav-mobile-menu { display: flex !important; }
         }
       `}</style>
-      <Nav page={page} setPage={navigate} />
-      {page === "home" && <><Hero setPage={navigate} /><ProductCards setPage={navigate} setActiveProduct={setActiveProduct} /><WhySection /><MarketSection /><CTASection setPage={navigate} /></>}
+      <Nav page={page} setPage={navigate} solutionsRef={solutionsRef} />
+      {page === "home" && <><Hero setPage={navigate} solutionsRef={solutionsRef} /><ProductCards setPage={navigate} setActiveProduct={setActiveProduct} solutionsRef={solutionsRef} /><WhySection /><SectorsSection /><CTASection setPage={navigate} /></>}
       {page === "products" && <ProductsHub setPage={navigate} setActiveProduct={setActiveProduct} />}
       {page === "product-detail" && <ProductDetail productId={activeProduct} setPage={navigate} setActiveProduct={setActiveProduct} />}
       {page === "services" && <ServicesPage setPage={navigate} />}
